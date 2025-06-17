@@ -160,11 +160,27 @@
     Your browser does not support HTML5 video.
   </video>
 
-  <!-- 🎵 Background Music (autoplay & loop) -->
-  <audio autoplay loop style="display: none;">
-    <source src="music.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+<!-- 🎵 Background Music -->
+<audio id="bg-music" loop style="display: none;">
+  <source src="music.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  // Waits for user interaction to bypass autoplay block
+  window.addEventListener("DOMContentLoaded", function () {
+    const music = document.getElementById("bg-music");
+
+    const playMusic = () => {
+      music.play().catch(e => {
+        console.log("Autoplay blocked:", e);
+      });
+      document.removeEventListener("click", playMusic);
+    };
+
+    document.addEventListener("click", playMusic);
+  });
+</script>
 
   <div class="overlay"></div>
 
